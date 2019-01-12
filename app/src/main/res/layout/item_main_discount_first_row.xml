@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cv_main_discount_container_first_row"
+    android:layout_marginStart="@dimen/mtr_margin"
+    android:layout_marginEnd="@dimen/mtr_margin"
+    android:layout_marginTop="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_discount_main_first_row"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        tools:background="@color/gray_300"/>
+
+</androidx.cardview.widget.CardView>

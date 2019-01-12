@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_200"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_200">
+
+        <com.lenscommerce.android.ui.widget.slider.Slider
+            android:id="@+id/slider_main"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:slider_animateIndicators="true"
+            app:slider_interval="3000"
+            app:slider_loopSlides="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cat_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slider_main"
+            android:layout_marginTop="@dimen/mtr_margin"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_main_cat_" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_special_offer_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_cat_main"
+            android:layout_marginStart="@dimen/mtr_margin"
+            android:layout_marginTop="@dimen/margin_4x"
+            android:fontFamily="sans-serif"
+            android:text="Special"
+            android:textColor="#3e403e"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/forte_regular" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_cat_main"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/margin_4x"
+            android:layout_toEndOf="@+id/tv_special_offer_main"
+            android:text="Offers"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:fontFamily="@font/forte_regular" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_special_offer_main"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/tv_special_offer_main"
+            android:layout_marginTop="@dimen/mtr_margin"
+            android:background="@color/gray_200"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_main_special_offer" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_discount_products_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_special_offer_main"
+            android:background="@color/gray_200"
+            tools:listitem="@layout/item_main_discount_first_row" />
+
+    </RelativeLayout>
+
+</ScrollView>

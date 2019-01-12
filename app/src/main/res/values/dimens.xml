@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_4x">16dp</dimen>
+
+    <dimen name="LoadingDots_dots_size_default">12dp</dimen>
+    <dimen name="LoadingDots_dots_space_default">2dp</dimen>
+    <dimen name="LoadingDots_jump_height_default">12dp</dimen>
+
+    <!--slider dimensions-->
+    <dimen name="default_indicator_size">8dp</dimen>
+    <dimen name="default_indicator_margins">5dp</dimen>
+    <dimen name="default_dash_indicator_width">12dp</dimen>
+    <dimen name="round_square_indicator_radius">2dp</dimen>
+    <dimen name="max_slider_indicator_size">16dp</dimen>
+    <dimen name="mtr_margin">8dp</dimen>
+</resources>
