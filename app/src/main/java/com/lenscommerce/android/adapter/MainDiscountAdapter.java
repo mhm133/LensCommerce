@@ -31,7 +31,13 @@ public class MainDiscountAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        return position % 2 * 2;
+        int viewType;
+        if (modelList.get(position).getDiscountImage() != null) {
+            viewType = TYPE_Linear;
+        } else {
+            viewType = TYPE_GROUP;
+        }
+        return viewType;
     }
 
     @NonNull
@@ -40,30 +46,28 @@ public class MainDiscountAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
         switch (viewType) {
-            case 0:
+            case TYPE_Linear:
                 view = inflater
                         .inflate(R.layout.item_main_discount_first_row, parent, false);
                 return new ViewHolder0(view);
-            case 2:
+            case TYPE_GROUP:
                 view = inflater.
                         inflate(R.layout.item_main_discount_second_row, parent, false);
                 return new ViewHolder2(view);
             default:
-                view = inflater.inflate(R.layout.item_main_discount_second_row, parent,
-                        false);
-                return new ViewHolder0(view);
+                return null;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
-            case 0:
+            case TYPE_Linear:
                 ViewHolder0 viewHolder0 = (ViewHolder0) holder;
                 viewHolder0.bindViews(modelList.get(position));
                 break;
 
-            case 2:
+            case TYPE_GROUP:
                 ViewHolder2 viewHolder2 = (ViewHolder2) holder;
                 viewHolder2.bindViews(modelList.get(position));
                 break;

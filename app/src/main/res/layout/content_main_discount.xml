@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_main_discount1"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_margin="@dimen/mtr_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/mtr_margin">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_main_discount1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:background="@color/gray_500" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_discount2"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_margin="@dimen/mtr_margin"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="7dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_discount2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/gray_500" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_discount3"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_margin="@dimen/mtr_margin"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="7dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_discount3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/gray_500" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_main_discount4"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_margin="@dimen/mtr_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/mtr_margin">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_main_discount4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:background="@color/gray_500" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_discount5"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_margin="@dimen/mtr_margin"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="7dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_discount5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/gray_500" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_discount6"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_margin="@dimen/mtr_margin"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="7dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_discount6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/gray_500" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

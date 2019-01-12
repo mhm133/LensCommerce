@@ -16,6 +16,6 @@ public interface ApiService {
     @GET("api/json/get/ceFrfZOPDm?indent=2")
     Call<List<MainSpecialOfferModel>> getMainSpecialOffer();
 
-    @GET("api/json/get/coNVySpSwi?indent=2")
+    @GET("api/json/get/cdYttXnnAO?indent=2")
     Call<List<MainDiscountModel>> getDiscountModel();
 }
