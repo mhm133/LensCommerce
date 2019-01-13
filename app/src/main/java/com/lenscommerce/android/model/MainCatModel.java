@@ -1,13 +1,17 @@
-package com.lenscommerce.android.Model;
+package com.lenscommerce.android.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class MainCatModel implements Serializable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class MainCatModel extends RealmObject implements Serializable {
     @SerializedName("cat_id")
     @Expose
+    @PrimaryKey
     private String id;
     @SerializedName("cat_title")
     @Expose

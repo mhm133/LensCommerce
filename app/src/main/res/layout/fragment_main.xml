@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_300"
+    android:background="#eeeeee"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_300">
+        android:background="#eeeeee">
 
         <com.lenscommerce.android.ui.widget.slider.Slider
             android:id="@+id/slider_main"
@@ -71,9 +71,95 @@
             android:id="@+id/rv_discount_products_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_below="@+id/rv_special_offer_main"
-            tools:listitem="@layout/item_main_discount_first_row"/>
+            android:background="@android:color/transparent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_latest_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_discount_products_main"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/mtr_margin"
+            android:layout_marginTop="@dimen/margin_4x"
+            android:layout_marginBottom="@dimen/margin_4x"
+            android:text="@string/mian_latest_products"
+            android:textColor="@color/bluegrey_dark"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/arial" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_latest_products_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_discount_products_main"
+            android:layout_marginEnd="@dimen/mtr_margin"
+            android:layout_marginTop="@dimen/margin_4x"
+            android:layout_marginBottom="@dimen/margin_4x"
+            android:fontFamily="@font/arial"
+            android:padding="4dp"
+            android:layoutDirection="rtl"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/see_all"
+            android:foreground="@drawable/main_see_all_bg"
+            android:textColor="@color/blue_light"
+            android:textStyle="normal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_latest_products_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_latest_products"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_main_latest_products" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_popular_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_latest_products_main"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/mtr_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/margin_4x"
+            android:text="@string/main_popular_products"
+            android:textColor="@color/bluegrey_dark"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/arial"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_popular_products_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_latest_products_main"
+            android:layout_marginEnd="@dimen/mtr_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/margin_4x"
+            android:fontFamily="@font/arial"
+            android:layoutDirection="rtl"
+            android:layout_alignParentEnd="true"
+            android:text="@string/see_all"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:background="@drawable/main_see_all_bg"
+            android:textColor="@color/blue_light"
+            android:textStyle="normal"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_popular_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_popular_products"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_main_latest_products"/>
 
     </RelativeLayout>
 

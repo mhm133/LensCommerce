@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="home" />
         <item
             android:id="@+id/nav_cat"
             android:icon="@drawable/ic_category_black_24dp"
             android:title="Category" />
     </group>
-    <item
-        android:id="@+id/cart"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
-        android:title="Cart" />
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="Cart" />
 
+        <item
+            android:id="@+id/nav_special_offer"
+            android:icon="@drawable/ic_star_1"
+            android:title="Special Offer" />
+
+        <item
+            android:id="@+id/nav_latest_products"
+            android:icon="@drawable/ic_star_1"
+            android:title="@string/mian_latest_products" />
+
+        <item
+            android:id="@+id/nav_popular_products"
+            android:icon="@drawable/ic_star_1"
+            android:title="@string/main_popular_products" />
+
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/nav_settings" />
+        <item
+            android:id="@+id/nav_aboutUs"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="@string/nav_aboutUs"/>
     </group>
 
 </menu>

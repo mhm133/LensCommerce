@@ -1,8 +1,9 @@
 package com.lenscommerce.android.server.service;
 
-import com.lenscommerce.android.Model.MainCatModel;
-import com.lenscommerce.android.Model.MainDiscountModel;
-import com.lenscommerce.android.Model.MainSpecialOfferModel;
+import com.lenscommerce.android.model.MainCatModel;
+import com.lenscommerce.android.model.MainDiscountModel;
+import com.lenscommerce.android.model.MainLatestProductsModel;
+import com.lenscommerce.android.model.MainSpecialOfferModel;
 
 import java.util.List;
 
@@ -18,4 +19,10 @@ public interface ApiService {
 
     @GET("api/json/get/cdYttXnnAO?indent=2")
     Call<List<MainDiscountModel>> getDiscountModel();
+
+    @GET("api/json/get/cfDtAEMsvC?indent=2")
+    Call<List<MainLatestProductsModel>> getLatestProducts();
+
+    @GET("api/json/get/cfDtAEMsvC?indent=2")
+    Call<List<MainLatestProductsModel>> getPopularProducts();
 }

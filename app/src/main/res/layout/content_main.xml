@@ -1,29 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentInsetStart="0dp">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_menu_home"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                app:srcCompat="@drawable/ic_menu_black_24dp"
-                app:tint="@color/primaryTextColor"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"/>
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_menu_home"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_menu_black_24dp"
+                    app:tint="@color/primaryTextColor" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@+id/iv_menu_home"
+                    android:src="@drawable/ecologo"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_user_menu_main"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
+                    app:srcCompat="@drawable/ic_user_black_24dp"
+                    app:tint="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_cart_menu_main"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_toStartOf="@+id/iv_user_menu_main"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/margin_4x"
+                    app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
+                    app:tint="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_search_menu_main"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_toStartOf="@+id/iv_cart_menu_main"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/margin_4x"
+                    app:srcCompat="@drawable/ic_search_black_24dp"
+                    app:tint="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="@dimen/mtr_margin"
+                    android:layout_marginEnd="@dimen/mtr_margin"
+                    android:layout_toStartOf="@+id/iv_user_menu_main"
+                    android:background="@drawable/shop_badge_bg"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    tools:text="1" />
+
+            </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,5 +96,5 @@
         android:name="com.lenscommerce.android.ui.fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,22 +2,28 @@ package com.lenscommerce.android.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lenscommerce.android.Model.MainCatModel;
-import com.lenscommerce.android.Model.MainDiscountModel;
-import com.lenscommerce.android.Model.MainSpecialOfferModel;
 import com.lenscommerce.android.R;
-import com.lenscommerce.android.adapter.MainCatAdapter;
-import com.lenscommerce.android.adapter.MainDiscountAdapter;
-import com.lenscommerce.android.adapter.MainSliderAdapter;
-import com.lenscommerce.android.adapter.MainSpecialOfferAdapter;
+import com.lenscommerce.android.adapter.main.MainCatAdapter;
+import com.lenscommerce.android.adapter.main.MainDiscountAdapter;
+import com.lenscommerce.android.adapter.main.MainLatestProductsAdapter;
+import com.lenscommerce.android.adapter.main.MainSliderAdapter;
+import com.lenscommerce.android.adapter.main.MainSpecialOfferAdapter;
+import com.lenscommerce.android.model.MainCatModel;
+import com.lenscommerce.android.model.MainDiscountModel;
+import com.lenscommerce.android.model.MainLatestProductsModel;
+import com.lenscommerce.android.model.MainSpecialOfferModel;
 import com.lenscommerce.android.server.ApiUtil;
 import com.lenscommerce.android.server.client.MainDiscountClient;
+import com.lenscommerce.android.server.client.MainLatestProductsClient;
+import com.lenscommerce.android.server.client.MainPopularProductsClient;
 import com.lenscommerce.android.server.client.MainSpecialOfferClient;
+import com.lenscommerce.android.storage.ProductCategoryDAO;
 import com.lenscommerce.android.ui.widget.slider.Slider;
 import com.lenscommerce.android.ui.widget.slider.event.OnSlideClickListener;
 import com.lenscommerce.android.util.PicassoImageLoadingService;
@@ -26,6 +32,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,16 +43,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainFragment extends Fragment implements OnSlideClickListener,
-        Callback<List<MainCatModel>>,MainSpecialOfferClient.OnSpecialOfferItemResponse,
-        MainDiscountClient.OnMainDiscountItemReceived {
-    @BindView(R.id.slider_main)
-    Slider slider;
-    @BindView(R.id.rv_cat_main)
-    RecyclerView rvCat;
-    @BindView(R.id.rv_special_offer_main)
-    RecyclerView rvOffer;
-    @BindView(R.id.rv_discount_products_main)
-    RecyclerView rvDiscount;
+        Callback<List<MainCatModel>>, MainSpecialOfferClient.OnSpecialOfferItemResponse,
+        MainDiscountClient.OnMainDiscountItemReceived,
+        MainLatestProductsClient.OnLatestProductsReceived,
+        MainPopularProductsClient.OnPopularItemReceived {
+    private static final String TAG = MainFragment.class.getSimpleName();
+    @BindView(R.id.slider_main) Slider slider;
+    @BindView(R.id.rv_cat_main) RecyclerView rvCat;
+    @BindView(R.id.rv_special_offer_main) RecyclerView rvOffer;
+    @BindView(R.id.rv_discount_products_main) RecyclerView rvDiscount;
+    @BindView(R.id.rv_latest_products_main) RecyclerView rvLatestProducts;
+    @BindView(R.id.rv_popular_products) RecyclerView rvPopularProducts;
+    @BindView(R.id.tv_latest_products_see_all) AppCompatTextView tvLatestProductsSeeAll;
+    @BindView(R.id.tv_popular_products_see_all) AppCompatTextView tvPopularProductsSeeAll;
+    private ProductCategoryDAO productCategoryDAO;
     private Context context;
 
     public MainFragment() {
@@ -60,6 +71,7 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        productCategoryDAO = new ProductCategoryDAO();
         Slider.init(new PicassoImageLoadingService());
         ApiUtil.getServiceClass().getMainCat().enqueue(this);
         MainSpecialOfferClient.getSpecialOfferContent(this);
@@ -90,6 +102,7 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
+        productCategoryDAO.closeRealm();
     }
 
     @Override
@@ -111,6 +124,13 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
 
     @Override
     public void onResponse(Call<List<MainCatModel>> call, Response<List<MainCatModel>> response) {
+        productCategoryDAO.insertCat(response.body(), new ProductCategoryDAO.OnProductCatInsert() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(context, "Insert Complete", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         MainCatAdapter adapter = new MainCatAdapter(getContext(), response.body());
         rvCat.setAdapter(adapter);
         rvCat.setHasFixedSize(true);
@@ -130,6 +150,7 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
         rvOffer.setHasFixedSize(true);
         rvOffer.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
                 false));
+        MainLatestProductsClient.getLatestProducts(MainFragment.this);
     }
 
     @Override
@@ -148,6 +169,37 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
 
     @Override
     public void onDiscountError(String errorMessage) {
+        Log.e(TAG, "onDiscountError: " + errorMessage);
+    }
+
+    @Override
+    public void onLatestProductsResponse(List<MainLatestProductsModel> modelList) {
+        MainLatestProductsAdapter adapter = new MainLatestProductsAdapter(context, modelList);
+        rvLatestProducts.setAdapter(adapter);
+        rvLatestProducts.setHasFixedSize(true);
+        rvLatestProducts.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
+                false));
+        MainPopularProductsClient.getPopularProducts(MainFragment.this);
+    }
+
+    @Override
+    public void onLatestProductsError(String errorMessage) {
+        Log.e(TAG, "onLatestProductsError: " + errorMessage);
+    }
+
+    @Override
+    public void onPopularItemResponse(List<MainLatestProductsModel> modelList) {
+        MainLatestProductsAdapter adapter = new MainLatestProductsAdapter(context, modelList);
+        rvPopularProducts.setAdapter(adapter);
+        rvPopularProducts.setHasFixedSize(true);
+        rvPopularProducts.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
+                false));
 
     }
+
+    @Override
+    public void onPopularItemError(String errorMessage) {
+        Log.e(TAG, "onPopularItemError: " + errorMessage);
+    }
+
 }

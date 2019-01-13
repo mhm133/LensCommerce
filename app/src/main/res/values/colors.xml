@@ -24,4 +24,10 @@
     <color name="gray_700">#616161</color>
     <color name="gray_800">#424242</color>
 
+    <color name="bluegrey_dark">#61747e</color>
+    <color name="blue_light">#2196f3</color>
+
+    <color name="hover_black">#12000000</color>
+
+
 </resources>

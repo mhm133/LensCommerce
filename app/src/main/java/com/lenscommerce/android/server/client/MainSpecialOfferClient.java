@@ -1,6 +1,6 @@
 package com.lenscommerce.android.server.client;
 
-import com.lenscommerce.android.Model.MainSpecialOfferModel;
+import com.lenscommerce.android.model.MainSpecialOfferModel;
 import com.lenscommerce.android.server.ApiUtil;
 
 import java.util.List;

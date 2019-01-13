@@ -1,4 +1,4 @@
-package com.lenscommerce.android.Model;
+package com.lenscommerce.android.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

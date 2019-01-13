@@ -1,4 +1,4 @@
-package com.lenscommerce.android.Model;
+package com.lenscommerce.android.model;
 
 import android.text.SpannableString;
 import android.text.Spanned;
