@@ -124,12 +124,12 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
 
     @Override
     public void onResponse(Call<List<MainCatModel>> call, Response<List<MainCatModel>> response) {
-        productCategoryDAO.insertCat(response.body(), new ProductCategoryDAO.OnProductCatInsert() {
+        /*productCategoryDAO.insertCat(response.body(), new ProductCategoryDAO.OnProductCatInsert() {
             @Override
             public void onSuccess() {
                 Toast.makeText(context, "Insert Complete", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         MainCatAdapter adapter = new MainCatAdapter(getContext(), response.body());
         rvCat.setAdapter(adapter);

@@ -25,7 +25,6 @@ public class MainSpecialOfferModel implements Serializable {
     @SerializedName("offer_current_price")
     @Expose
     private String offerCurrentPrice;
-    private final static long serialVersionUID = 5028962903959994824L;
 
     public String getOfferId() {
         return offerId;
