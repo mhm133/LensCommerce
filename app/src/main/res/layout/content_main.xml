@@ -7,7 +7,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_toEndOf="@+id/iv_menu_home"
-                    android:src="@drawable/ecologo"/>
+                    android:src="@drawable/ecologo" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_user_menu_main"
@@ -75,6 +76,7 @@
                     app:tint="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_main_cart_size"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginTop="@dimen/mtr_margin"
@@ -96,5 +98,6 @@
         android:name="com.lenscommerce.android.ui.fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:layout="@layout/fragment_main"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

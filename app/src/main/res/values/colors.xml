@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#c0272d</color>
+    <color name="colorPrimary">#d12b30</color>
     <color name="colorPrimaryDark">#880005</color>
     <color name="colorAccent">#fdc10e</color>
 
@@ -28,6 +28,11 @@
     <color name="blue_light">#2196f3</color>
 
     <color name="hover_black">#12000000</color>
+    <color name="adrs_title1">#424242</color>
+    <color name="adrs_title3">#979797</color>
+    <color name="back_gray">#e8e8e8</color>
+    <color name="dividersColor">#eeeeee</color>
+    <color name="digikala_indigo_light">#1e88e5</color>
 
 
 </resources>

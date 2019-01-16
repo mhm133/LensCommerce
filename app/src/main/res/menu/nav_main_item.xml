@@ -29,7 +29,7 @@
         <item
             android:id="@+id/nav_latest_products"
             android:icon="@drawable/ic_star_1"
-            android:title="@string/mian_latest_products" />
+            android:title="@string/main_latest_products" />
 
         <item
             android:id="@+id/nav_popular_products"

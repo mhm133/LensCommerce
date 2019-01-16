@@ -7,6 +7,7 @@ import com.lenscommerce.android.model.MainCatModel;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ProductCategoryDAO implements Realm.Transaction, Realm.Transaction.OnError,
         Realm.Transaction.OnSuccess {
@@ -27,14 +28,15 @@ public class ProductCategoryDAO implements Realm.Transaction, Realm.Transaction.
         }
     }
 
-    public void getCat(List<MainCatModel> modelList) {
-
+    public RealmResults<MainCatModel> getCat() {
+        return realm.where(MainCatModel.class).findAllAsync();
     }
 
     @Override
     public void execute(Realm realm) {
         MainCatModel model = realm.createObject(MainCatModel.class, model1.getId());
         model.setCatTitle(model1.getCatTitle());
+        realm.insertOrUpdate(model);
     }
 
     @Override

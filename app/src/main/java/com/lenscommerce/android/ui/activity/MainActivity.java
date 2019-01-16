@@ -1,5 +1,6 @@
 package com.lenscommerce.android.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.view.GravityCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements
     NavigationView navigationView;
     @BindView(R.id.iv_menu_home)
     AppCompatImageView icMenu;
+    @BindView(R.id.tv_main_cart_size)
+    AppCompatTextView tvCartSize;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,11 +36,16 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupNavigation();
+        setupCartIcon();
     }
 
     private void setupNavigation() {
         navigationView.setNavigationItemSelectedListener(this);
         icMenu.setOnClickListener(this);
+    }
+
+    private void setupCartIcon() {
+        // TODO: 14/01/2019 Setup Cart Size
     }
 
     @Override
@@ -49,9 +59,32 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        drawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
+            case R.id.nav_home:
+                //do nothing
+                break;
             case R.id.nav_cat:
-                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this, CategoryActivity.class));
+                break;
+            case R.id.nav_cart:
+                //do nothing
+                break;
+            case R.id.nav_special_offer:
+                //do nothing
+                break;
+            case R.id.nav_latest_products:
+                //do nothing
+                break;
+            case R.id.nav_popular_products:
+                //do nothing
+                break;
+            case R.id.nav_setting:
+                //do nothing
+                break;
+            case R.id.nav_aboutUs:
+                //do nothing
+                break;
         }
         return false;
     }
@@ -59,10 +92,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            icMenu.setImageResource(R.drawable.ic_arrow_back_black_24dp);
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            icMenu.setImageResource(R.drawable.ic_menu_black_24dp);
             drawerLayout.openDrawer(GravityCompat.START);
         }
     }

@@ -13,4 +13,12 @@
     <dimen name="round_square_indicator_radius">2dp</dimen>
     <dimen name="max_slider_indicator_size">16dp</dimen>
     <dimen name="mtr_margin">8dp</dimen>
+    <dimen name="toolbar_size">17sp</dimen>
+
+    <dimen name="product_list_row_product_card_radius">3dp</dimen>
+    <dimen name="product_list_row_product_card_elevation">2dp</dimen>
+    <dimen name="product_list_product_image_size_large_item">168dp</dimen>
+    <dimen name="product_list_row_product_special_offer_badge_padding">5dp</dimen>
+    <dimen name="product_list_product_image_size_small_item_list">16dp</dimen>
+    <dimen name="product_list_standard_margin">8dp</dimen>
 </resources>

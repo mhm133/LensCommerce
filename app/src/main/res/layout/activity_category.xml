@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_300"
+    android:layoutDirection="ltr"
     tools:context=".ui.activity.CategoryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,25 +39,96 @@
                     android:layout_height="match_parent"
                     android:layout_toEndOf="@+id/iv_cat_back"
                     android:gravity="center_vertical"
-                    android:text="Products Category"
+                    android:text="@string/category"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="16sp"
-                    app:fontFamily="@font/arial" />
+                    android:textSize="@dimen/toolbar_size"
+                    app:fontFamily="@font/arial"
+                    tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_cart_menu_cat"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/margin_4x"
+                    app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
+                    app:tint="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_cart_size_cat"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/mtr_margin"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/shop_badge_bg"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    tools:text="1" />
+
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:tabIndicatorColor="@color/primaryTextColor"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="scrollable"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:foreground="#96000000"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/category_image"
+                    app:layout_collapseMode="pin" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/browse_through_million_of_products_nin_many_category"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/arial"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-30dp"
+                android:paddingLeft="@dimen/mtr_margin"
+                android:paddingRight="@dimen/mtr_margin"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_category_layout" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

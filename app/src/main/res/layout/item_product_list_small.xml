@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/product_items_style"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_product"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:minWidth="124dp"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@+id/image_product"
+            android:minHeight="124dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="@font/arial"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/adrs_title1"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/view_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/text_title"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/back_gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_previous_price"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@+id/view_separator"
+                android:layout_marginLeft="@dimen/mtr_margin"
+                android:gravity="left|center_vertical|center_horizontal|center"
+                android:singleLine="true"
+                android:textColor="#f5363f"
+                android:textSize="13sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_current_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_previous_price"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/mtr_margin"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="0dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:textSize="15sp"
+                tools:text="current_price" />
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

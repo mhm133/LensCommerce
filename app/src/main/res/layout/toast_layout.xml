@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toast_root_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="#edd12b30"
+    android:layout_margin="@dimen/mtr_margin"
+    app:cardCornerRadius="@dimen/mtr_margin"
+
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="fafsafasfsdsfsdfsdfsdfsd"
+        android:layout_gravity="center"
+        app:fontFamily="@font/arial"
+        android:textStyle="bold"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="15sp"
+        android:layout_margin="@dimen/mtr_margin"/>
+
+
+</androidx.cardview.widget.CardView>

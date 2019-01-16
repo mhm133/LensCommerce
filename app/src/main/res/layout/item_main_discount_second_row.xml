@@ -13,7 +13,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="@dimen/mtr_margin"
+        app:cardCornerRadius="4dp"
         android:layout_margin="4dp"
         android:layout_weight="1">
 

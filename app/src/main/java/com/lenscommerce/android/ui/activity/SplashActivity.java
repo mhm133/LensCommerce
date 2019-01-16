@@ -7,6 +7,7 @@ import android.view.animation.AlphaAnimation;
 
 import com.lenscommerce.android.R;
 import com.lenscommerce.android.ui.widget.HorizontalDottedProgress;
+import com.lenscommerce.android.util.ConnectivityReceiver;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,13 +27,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+        boolean isConnected = ConnectivityReceiver.isConnected();
         setupAnimation();
         setupProgressBar();
-        setupSplash();
+        if (isConnected) {
+            setupSplash();
+        } else {
+            // TODO: 14/01/2019 setup error Connection
+        }
     }
 
     private void setupAnimation() {
         AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        fadeIn.setDuration(500);
         ivLogo.startAnimation(fadeIn);
     }
 

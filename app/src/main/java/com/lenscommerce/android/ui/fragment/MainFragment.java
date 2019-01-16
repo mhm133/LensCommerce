@@ -1,13 +1,16 @@
 package com.lenscommerce.android.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.lenscommerce.android.R;
 import com.lenscommerce.android.adapter.main.MainCatAdapter;
 import com.lenscommerce.android.adapter.main.MainDiscountAdapter;
@@ -24,6 +27,8 @@ import com.lenscommerce.android.server.client.MainLatestProductsClient;
 import com.lenscommerce.android.server.client.MainPopularProductsClient;
 import com.lenscommerce.android.server.client.MainSpecialOfferClient;
 import com.lenscommerce.android.storage.ProductCategoryDAO;
+import com.lenscommerce.android.ui.activity.ProductsActivity;
+import com.lenscommerce.android.ui.widget.MaterialProgressBar;
 import com.lenscommerce.android.ui.widget.slider.Slider;
 import com.lenscommerce.android.ui.widget.slider.event.OnSlideClickListener;
 import com.lenscommerce.android.util.PicassoImageLoadingService;
@@ -33,6 +38,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +62,13 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
     @BindView(R.id.rv_popular_products) RecyclerView rvPopularProducts;
     @BindView(R.id.tv_latest_products_see_all) AppCompatTextView tvLatestProductsSeeAll;
     @BindView(R.id.tv_popular_products_see_all) AppCompatTextView tvPopularProductsSeeAll;
+    @BindView(R.id.main_layout_container)
+    NestedScrollView container;
+    @BindView(R.id.main_progress)
+    MaterialProgressBar progressBar;
+    private LinearLayout noConnectionLayout;
+    @BindView(R.id.btn_no_connection)
+    MaterialButton btnRetry;
     private ProductCategoryDAO productCategoryDAO;
     private Context context;
 
@@ -73,9 +86,6 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
         super.onCreate(savedInstanceState);
         productCategoryDAO = new ProductCategoryDAO();
         Slider.init(new PicassoImageLoadingService());
-        ApiUtil.getServiceClass().getMainCat().enqueue(this);
-        MainSpecialOfferClient.getSpecialOfferContent(this);
-        MainDiscountClient.getDiscountItems(this);
     }
 
     private void setupSlider() {
@@ -89,9 +99,24 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
+        noConnectionLayout = view.findViewById(R.id.no_connection_container);
+        ApiUtil.getServiceClass().getMainCat().enqueue(this);
         setupSlider();
-
+        setupSeeAllBtns();
         return view;
+    }
+
+    private void setupSeeAllBtns() {
+        tvLatestProductsSeeAll.setOnClickListener(view -> {
+            Intent i = new Intent(getContext(), ProductsActivity.class);
+            i.putExtra("cat_id", 1);
+            startActivity(i);
+        });
+        tvPopularProductsSeeAll.setOnClickListener(view -> {
+            Intent i = new Intent(getContext(), ProductsActivity.class);
+            i.putExtra("cat_id", 1);
+            startActivity(i);
+        });
     }
 
     @Override
@@ -124,23 +149,25 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
 
     @Override
     public void onResponse(Call<List<MainCatModel>> call, Response<List<MainCatModel>> response) {
-        /*productCategoryDAO.insertCat(response.body(), new ProductCategoryDAO.OnProductCatInsert() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(context, "Insert Complete", Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        container.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(MaterialProgressBar.GONE);
+        noConnectionLayout.setVisibility(View.GONE);
 
         MainCatAdapter adapter = new MainCatAdapter(getContext(), response.body());
         rvCat.setAdapter(adapter);
         rvCat.setHasFixedSize(true);
         rvCat.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
                 false));
+        MainDiscountClient.getDiscountItems(this);
+        MainSpecialOfferClient.getSpecialOfferContent(MainFragment.this);
     }
 
     @Override
     public void onFailure(Call<List<MainCatModel>> call, Throwable t) {
-        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(MaterialProgressBar.GONE);
+        container.setVisibility(View.GONE);
+        noConnectionLayout.setVisibility(View.VISIBLE);
+        btnRetry.setOnClickListener(view -> call.enqueue(MainFragment.this));
     }
 
     @Override
