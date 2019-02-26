@@ -33,6 +33,7 @@
     <color name="back_gray">#e8e8e8</color>
     <color name="dividersColor">#eeeeee</color>
     <color name="digikala_indigo_light">#1e88e5</color>
+    <color name="colorBackgroundHighlightWhite">#CEEBE4E4</color>
 
 
 </resources>

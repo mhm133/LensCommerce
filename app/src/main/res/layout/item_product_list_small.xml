@@ -21,7 +21,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:minWidth="124dp"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            tools:background="#f00"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"

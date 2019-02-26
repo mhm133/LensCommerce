@@ -1,6 +1,7 @@
 package com.lenscommerce.android.server.service;
 
 import com.lenscommerce.android.model.CategoryModel;
+import com.lenscommerce.android.model.FakeData.FakeModel;
 import com.lenscommerce.android.model.MainCatModel;
 import com.lenscommerce.android.model.MainDiscountModel;
 import com.lenscommerce.android.model.MainLatestProductsModel;
@@ -14,24 +15,25 @@ import retrofit2.Call;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("api/json/get/bTEzqvePyq?indent=2")
+    @GET("main_cat.json?key=5a5257e0")
     Call<List<MainCatModel>> getMainCat();
 
-    @GET("api/json/get/ceFrfZOPDm?indent=2")
+    @GET("main_special_offer.json?key=5a5257e0")
     Call<List<MainSpecialOfferModel>> getMainSpecialOffer();
 
     @GET("api/json/get/cdYttXnnAO?indent=2")
     Call<List<MainDiscountModel>> getDiscountModel();
 
-    @GET("api/json/get/cfDtAEMsvC?indent=2")
+    @GET("latest_products.json?key=5a5257e0")
     Call<List<MainLatestProductsModel>> getLatestProducts();
 
-    @GET("api/json/get/cfDtAEMsvC?indent=2")
+    @GET("latest_products.json?key=5a5257e0")
     Call<List<MainLatestProductsModel>> getPopularProducts();
 
-    @GET("api/json/get/ceHJNyOVVe?indent=2")
+    @GET("category.json?key=5a5257e0")
     Call<List<CategoryModel>> getCategoryList();
 
     @FormUrlEncoded
@@ -40,5 +42,12 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/json/get/ceHJNyOVVe?indent=2")
-    Call<List<ProductsModel>> getProducts(String catId, String sortType);
+    Call<List<ProductsModel>> getProducts(String catId, int page, int sortType);
+
+    @GET("top_rated")
+    Call<FakeModel> getTopRatedMovies(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int pageIndex
+    );
 }

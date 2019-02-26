@@ -3,6 +3,7 @@ package com.lenscommerce.android.ui.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import com.lenscommerce.android.R;
 import com.lenscommerce.android.adapter.ProductsAdapter;
 import com.lenscommerce.android.model.ProductsModel;
 import com.lenscommerce.android.server.ApiUtil;
+import com.lenscommerce.android.util.endlessrecycler.InfiniteScrollProvide;
 
 import java.util.List;
 
@@ -63,6 +65,8 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
     private Bundle extras;
     private String catId;
     private ProductsAdapter adapter;
+    private int page = 1;
+    private int sortType = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,28 +82,49 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
     private void setupComponent() {
         if (extras != null)
             toolbarTitle.setText(extras.getString("cat_title"));
-        setupApiService(0);
+        setupRecyclerView();
         setupViews();
     }
 
-    private void setupApiService(int sortType) {
+    private void setupRecyclerView() {
+        setupRecyclerLayoutManager();
+        adapter = new ProductsAdapter(context);
+        rvProductsList.setAdapter(adapter);
+        rvProductsList.setHasFixedSize(true);
+        setupLoadMore();
+    }
+
+    private void setupLoadMore() {
+        InfiniteScrollProvide infiniteScrollProvide = new InfiniteScrollProvide();
+        infiniteScrollProvide.attach(rvProductsList, () -> {
+            lnrLazyLoading.setVisibility(LinearLayout.VISIBLE);
+            setupApiService();
+        });
+    }
+
+    private void setupApiService() {
         if (extras != null)
             catId = extras.getString("cat_id");
-        ApiUtil.getServiceClass().getProducts(catId, String.valueOf(sortType)).enqueue(this);
+        ApiUtil.getServiceClass().getProducts(catId,
+                page, sortType)
+                .enqueue(this);
     }
 
     @Override
     public void onResponse(Call<List<ProductsModel>> call, Response<List<ProductsModel>> response) {
         progressBar.setVisibility(ProgressBar.GONE);
-        adapter = new ProductsAdapter(context, response.body());
-        rvProductsList.setAdapter(adapter);
-        rvProductsList.setHasFixedSize(true);
+        lnrLazyLoading.setVisibility(LinearLayout.GONE);
+        adapter.addList(response.body());
+        page += 1;
         setupGoToTopBtn();
     }
 
     @Override
     public void onFailure(Call<List<ProductsModel>> call, Throwable t) {
-        //todo show error
+        Log.e("TAG", "onFailure: ", t);
+        progressBar.setVisibility(ProgressBar.GONE);
+        lnrLazyLoading.setVisibility(LinearLayout.GONE);
+        // TODO: 21/01/2019 write error
     }
 
     private void setupViews() {
@@ -126,13 +151,6 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
                     if (dy < 1) {
                         btnGoToTop.setVisibility(View.INVISIBLE);
                     }
-                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
-                            rvProductsList.getLayoutManager();
-                    int totalItemCount = rvProductsList.getLayoutManager().getItemCount();
-                    int lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                    if (totalItemCount <= (lastVisibleItem + 5)) {
-                        lnrLazyLoading.setVisibility(LinearLayout.VISIBLE);
-                    }
                 }
             });
         }
@@ -153,27 +171,34 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
     }
 
     private void setupChangeViews() {
-        SharedPreferences.Editor editor = itemViewPref.edit();
         btnChangeViews.setOnClickListener(view -> {
-            if (itemViewPref.getString(RV_VIEW_TYPE, "1").contains("1")) {
-                editor.putString(RV_VIEW_TYPE, "2").apply();
-                btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
-                rvProductsList.setLayoutManager(new GridLayoutManager(context, 2));
-                adapter.notifyDataSetChanged();
-            } else if (itemViewPref.getString(RV_VIEW_TYPE, "2").contains("2")) {
-                editor.putString(RV_VIEW_TYPE, "3").apply();
-                btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_large));
-                rvProductsList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,
-                        false));
-                adapter.notifyDataSetChanged();
-            } else {
-                editor.putString(RV_VIEW_TYPE, "1").apply();
-                btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_small));
-                rvProductsList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,
-                        false));
-                adapter.notifyDataSetChanged();
-            }
+            setupRecyclerLayoutManager();
         });
+    }
+
+    private void setupRecyclerLayoutManager() {
+        SharedPreferences.Editor editor = itemViewPref.edit();
+        if (itemViewPref.getString(RV_VIEW_TYPE, "1").contains("1")) {
+            editor.putString(RV_VIEW_TYPE, "2").apply();
+            btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
+            rvProductsList.setLayoutManager(new GridLayoutManager(context, 2));
+            if (adapter != null)
+                adapter.notifyDataSetChanged();
+        } else if (itemViewPref.getString(RV_VIEW_TYPE, "2").contains("2")) {
+            editor.putString(RV_VIEW_TYPE, "3").apply();
+            btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_large));
+            rvProductsList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,
+                    false));
+            if (adapter != null)
+                adapter.notifyDataSetChanged();
+        } else {
+            editor.putString(RV_VIEW_TYPE, "1").apply();
+            btnChangeViews.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_small));
+            rvProductsList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,
+                    false));
+            if (adapter != null)
+                adapter.notifyDataSetChanged();
+        }
     }
 
     private void setupFilterList() {
@@ -191,31 +216,47 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
     }
 
     private void setupFiltering() {
-
+        // TODO: 21/01/2019 setup filter list
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        adapter = new ProductsAdapter(context);
         switch (i) {
             case 0:
-                if (adapterView.getSelectedItemPosition() != 0)
-                    setupApiService(0);
+                if (adapterView.getSelectedItemPosition() != 0) {
+                    sortType = 0;
+                    rvProductsList.setAdapter(adapter);
+                    setupApiService();
+                }
                 break;
             case 1:
-                if (adapterView.getSelectedItemPosition() != 1)
-                    setupApiService(1);
+                if (adapterView.getSelectedItemPosition() != 1) {
+                    sortType = 1;
+                    rvProductsList.setAdapter(adapter);
+                    setupApiService();
+                }
                 break;
             case 2:
-                if (adapterView.getSelectedItemPosition() != 2)
-                    setupApiService(2);
+                if (adapterView.getSelectedItemPosition() != 2) {
+                    sortType = 2;
+                    rvProductsList.setAdapter(adapter);
+                    setupApiService();
+                }
                 break;
             case 3:
-                if (adapterView.getSelectedItemPosition() != 3)
-                    setupApiService(3);
+                if (adapterView.getSelectedItemPosition() != 3) {
+                    sortType = 3;
+                    rvProductsList.setAdapter(adapter);
+                    setupApiService();
+                }
                 break;
             case 4:
-                if (adapterView.getSelectedItemPosition() != 4)
-                    setupApiService(4);
+                if (adapterView.getSelectedItemPosition() != 4) {
+                    sortType = 4;
+                    rvProductsList.setAdapter(adapter);
+                    setupApiService();
+                }
                 break;
         }
     }
@@ -224,4 +265,5 @@ public class ProductsActivity extends AppCompatActivity implements Callback<List
     public void onNothingSelected(AdapterView<?> adapterView) {
         //do nothing
     }
+
 }

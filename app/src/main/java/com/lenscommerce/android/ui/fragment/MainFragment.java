@@ -99,7 +99,6 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        noConnectionLayout = view.findViewById(R.id.no_connection_container);
         ApiUtil.getServiceClass().getMainCat().enqueue(this);
         setupSlider();
         setupSeeAllBtns();
@@ -151,7 +150,6 @@ public class MainFragment extends Fragment implements OnSlideClickListener,
     public void onResponse(Call<List<MainCatModel>> call, Response<List<MainCatModel>> response) {
         container.setVisibility(View.VISIBLE);
         progressBar.setVisibility(MaterialProgressBar.GONE);
-        noConnectionLayout.setVisibility(View.GONE);
 
         MainCatAdapter adapter = new MainCatAdapter(getContext(), response.body());
         rvCat.setAdapter(adapter);

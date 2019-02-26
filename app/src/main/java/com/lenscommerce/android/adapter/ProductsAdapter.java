@@ -11,6 +11,7 @@ import com.lenscommerce.android.model.ProductsModel;
 import com.lenscommerce.android.ui.activity.ProductsActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,11 +23,15 @@ import butterknife.ButterKnife;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
     private Context context;
-    private List<ProductsModel> modelList;
+    private List<ProductsModel> modelList = new ArrayList<>();
 
-    public ProductsAdapter(Context context, List<ProductsModel> modelList) {
+    public ProductsAdapter(Context context) {
         this.context = context;
-        this.modelList = modelList;
+    }
+
+    public void addList(List<ProductsModel> models) {
+        this.modelList = models;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/product_items_style"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -16,6 +17,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_4x"
             android:layout_marginBottom="@dimen/product_list_standard_margin"
+            tools:background="@color/colorPrimaryDark"
             android:scaleType="fitXY"
             android:visibility="visible" />
 

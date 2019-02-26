@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient {
+public class Client {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -20,23 +20,7 @@ public class ApiClient {
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .build();
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://my.api.mockaroo.com/")
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
-        }
-        return retrofit;
-    }
-
-    public static Retrofit getClienttwo() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        if (retrofit == null) {
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .readTimeout(20, TimeUnit.SECONDS)
-                    .connectTimeout(20, TimeUnit.SECONDS)
-                    .build();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/3/")
+                    .baseUrl("https://www.json-generator.com")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
